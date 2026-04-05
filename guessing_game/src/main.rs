@@ -1,5 +1,5 @@
 use std::io;
-
+use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
@@ -9,18 +9,52 @@ fn main() {
 
     println!("The secret number is: {secret_number}");
 
-    println!("Please input your guess.");
+		loop {
+			println!("Please input your guess.");
+	
+			let mut guess = String::new();
+	
+			io::stdin()
+					.read_line(&mut guess)
+					.expect("Failed to read line");
+	
+			let guess: u32 = match guess
+													.trim()
+													.parse() {
+														Ok(num) => num,
+														Err(_) => continue,
+													};
+													// .expect("Please type a number!");
+	
+			println!("You guessed: {}", guess);
+	
+			match guess.cmp(&secret_number) {
+					Ordering::Less => println!("Too small!"),
+					Ordering::Greater => println!("Too big!"),
+					Ordering::Equal => {
+						println!("You win!");
+						break;
+					} 
+			}
+		}
 
-    let mut guess = String::new();
-
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
-
-    println!("You guessed: {}", guess);
 
     // let x = 5;
     // let y = 10;
 
     // println!("x = {x} and y + 2 = {}", y + 2);
 }
+
+
+// You must add one of [th, st, nd, rd] to a given integer so it turns into an ordinal number.
+// Input
+// An integer N
+// Output
+// Integer N concatenated with one of [th, st, nd, rd]
+// Constraints
+// Example
+// Input
+// 1
+// Output
+// 1st
+// Must do this in JS
