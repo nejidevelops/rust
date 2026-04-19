@@ -89,4 +89,9 @@ fn main() {
     for element in a {
         println!("The value is: {element}");
     }
+
+    for number in 1..4 {
+        println!("{number}!");
+    }
+    println!("LIFTOFF!!!");
 }
